@@ -24,8 +24,6 @@ x, y = [], []
 Sentence = homework.splitlines()
 for i in range(0, len(Sentence)):
     Line = Sentence[i].strip(' ').capitalize()
-    Sentence1 = Line.split('.')
-    #print(Sentence1)
     x.append(Line)
 Task = '\n'.join(x)
 #print(Task)
