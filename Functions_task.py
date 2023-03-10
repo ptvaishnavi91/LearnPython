@@ -9,26 +9,50 @@ import random
 from random import choice, randint
 from string import ascii_lowercase
 random_dict = dict()
-final_dict, tmp_dict = {},  {}
+final_dict = {}
+keys_list = []
 
 def random_func():
     random_list = [{choice(ascii_lowercase): randint(0, 100) for i in range(len(ascii_lowercase))} for j in range(2,10)]
     return random_list
 print("random list:\n" , random_func())
 
-#Transform from list of dicts into dict of lists.
-def tmp_func():
-    for dictionary in random_func():
-      for k, v in dictionary.items():
-        tmp_dict.setdefault(k, []).append(v)
-    return tmp_dict
+def keys_func():
+    for i in random_func():
+        for k in i.keys():
+            keys_list.append(k)
+    return keys_list
+
+def unique_key_func():
+    unique_keys = set(keys_func())
+    return unique_keys
+
+def multiple_occurrence_func():
+    multiple_occurrence_list = [key for key in unique_key_func() if keys_func().count(key) > 1]
+    return multiple_occurrence_list
 
 #Now choose only the biggest one
 def final_func():
-    for k, v in tmp_func().items():
-      if len(v) > 1:
-        final_dict[k+"_"+str(v.index(max(v))+1)] = max(v)
-      else: final_dict[k] = v[0]
+    for key in unique_key_func():
+        # Checking if the key occurs in more than one dictionary
+        if key in multiple_occurrence_func():
+            # Finding the maximum value of the key among all dictionaries and the index
+            max_value = float('-inf')
+            max_dict_index = -1
+            for i, d in enumerate(random_func()):
+                if key in d:
+                    if d[key] > max_value:
+                        max_value = d[key]
+                        max_dict_index = i
+                # Adding the index to the key and add it to the final dictionary
+            final_dict[key + "_" + str(max_dict_index + 1)] = max_value
+        else:
+            # If the key occurs in only one dictionary, add it to the final dictionary as is
+            for d in random_func():
+                if key in d:
+                    final_dict[key] = d[key]
+                    print(final_dict)
+                    break
     return final_dict
 
 print("final_dict:\n",final_func())
