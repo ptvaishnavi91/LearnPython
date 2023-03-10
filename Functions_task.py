@@ -107,8 +107,12 @@ def replace_func(old,new):
     result = norm_func().replace(old,new)
     return result
 
-replaced_line = replace_func(' iz ', ' is ')
-new_text = replaced_line.replace(' Iz ', ' Is ')
+def replaced_func(old,new):
+    replaced_line = replace_func(' iz ', ' is ')
+    replaced_line.replace(old,new)
+    return  replaced_line
+
+new_text = replaced_func(' Iz ', ' Is ')
 
 
 # 5. Last is to calculate number of whitespace characters in this tex. carefull, not only spaces, but all whitespaces
