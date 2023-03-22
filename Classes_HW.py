@@ -6,6 +6,8 @@ class Category:
         if self.category in ('1', '2', '3', '4'):
             self.text = input("Please enter the content:\n")
             self.date = datetime.now()
+        elif self.category in ('5'):
+            print('Exiting')
         else:
             print('Incorrect category')
 
@@ -67,7 +69,6 @@ for i in range(0,5):
         user = User_Choice()
         user.user_function(user.user_category, cat.text, user.user_footer, user.user_city)
     elif category_name == '5':
-        print('Exiting')
         exit()
     else:
         print('Entered category is incorrect, please check the options and enter the correct serial number.')
