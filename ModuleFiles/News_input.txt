@@ -1,0 +1,14 @@
+Newsfeed:
+News national
+Krakow's temperature is all time low.
+Krakow, 2023-03-16 22:26:20.781450
+Newsfeed:
+News international
+Italian food is rated world number 1.
+Rome, 2023-03-16 22:26:32.972890
+Private ad:
+Selling personal scooter, for further details contact 789012345.
+Actual until: 2023-05-31 00:00:00, 75  days left
+Proverb of the day:
+Words are mightier than sword!
+Author:john,paris
