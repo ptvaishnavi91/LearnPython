@@ -39,10 +39,10 @@ class File_Input():
             i = 0
             for line1 in ip_data:
                 if ip_data[i] == op_data[i]:
-                    print('Identical')
+                    print(f'Line {i} is Identical\n\t Line: {ip_data[i]}')
                     compare = 'Identical'
                 else:
-                    print('Output file is not matching with input file ')
+                    print(f'Line {i} from input file is not matching with output file: \n\tInput:{ip_data[i]}\n\tOutput:{op_data[i]} ')
                     compare = 'Non-identical'
                 i += 1
             ip_file.close()
