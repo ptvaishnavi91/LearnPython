@@ -2,9 +2,8 @@ import json
 import os
 import sys
 
-from PythonForDQE.HomeWork.JSON_Module.ClassesHW import Advertisement, User_Choice, News
-from PythonForDQE.HomeWork.JSON_Module.ModuleFilesHW import File_Input
-
+from Classes.Classes_HW import Advertisement, User_Choice, News
+from ModuleFiles.ModuleFilesHW import File_Input
 
 
 class News_Json(File_Input,Advertisement, User_Choice,News):
@@ -13,7 +12,9 @@ class News_Json(File_Input,Advertisement, User_Choice,News):
 
     def input_func(self):
         if self.input_choice == '1':
-            import ClassesHW
+            from Classes.Classes_HW import Newsfeed
+            n = Newsfeed()
+            n.select_category()
         elif self.input_choice == '2':
             self.file_input_func()
         elif self.input_choice == '3':
@@ -29,7 +30,7 @@ class News_Json(File_Input,Advertisement, User_Choice,News):
 
         news_dict = json.load(open(ip_file_path))
         print(type(news_dict))
-        # use User_category_input.json
+        # use C:\Users\Vaishnavi_Peranamall\PycharmProjects\LearnPython\JSON_Module\User_category_input.json
         # use National_news_input.json
         # use Advertisement_input.json
         # use International_news_input.json
@@ -74,6 +75,6 @@ class News_Json(File_Input,Advertisement, User_Choice,News):
         else:
             print("Input and Output JSONs are not equal")
 
-
-news_obj = News_Json()
-news_obj.input_func()
+if __name__ == '__main__':
+    news_obj = News_Json()
+    news_obj.input_func()

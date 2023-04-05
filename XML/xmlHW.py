@@ -2,23 +2,24 @@ import xml.etree.ElementTree as ET
 import os
 import sys
 
-from ClassesHW import Advertisement, User_Choice, News
-from ModuleFilesHW import File_Input
-from JSON_HW import News_Json
+from Classes.Classes_HW import Advertisement, User_Choice, News
+from ModuleFiles.ModuleFilesHW import File_Input
+from JSON_Module.JSON_HW import News_Json
 
 
-
-class News_xml(File_Input,Advertisement, User_Choice,News):
+class News_xml(News_Json,File_Input,Advertisement, User_Choice,News):
     def __init__(self):
         self.input_choice = input('How do you want to enter the news feed? 1. Through console, 2. Using input text file, 3. Using input json file, 4. Using xml input file  \n')
 
     def input_func(self):
         if self.input_choice == '1':
-            import ClassesHW
+            from Classes.Classes_HW import Newsfeed
+            n = Newsfeed()
+            n.select_category()
         elif self.input_choice == '2':
             self.file_input_func()
         elif self.input_choice == '3':
-            News_Json.json_input_func()
+            self.json_input_func()
         elif self.input_choice == '4':
             self.xml_input_func()
         else:
@@ -27,11 +28,11 @@ class News_xml(File_Input,Advertisement, User_Choice,News):
     def xml_input_func(self):
         # Task 2: Default folder or user provided file path
         ip_file_path = input('Enter the path of the input file:\n')
-        # Use news_input_file.xml
+        # Use C:\Users\Vaishnavi_Peranamall\PycharmProjects\LearnPython\XML\news_input_file.xml
 
         sys_path = sys.path
         op_file_path = f'{sys_path[0]}\\output_xml_file.xml'
-
+        print(op_file_path)
         xml_file = ET.parse(open(ip_file_path))
         print(xml_file)
 
@@ -94,8 +95,6 @@ class News_xml(File_Input,Advertisement, User_Choice,News):
         if compare == 'Identical':
             os.remove(ip_file_path)
 
-
-
-
-news_obj = News_xml()
-news_obj.input_func()
+if __name__ == '__main__':
+    news_obj = News_xml()
+    news_obj.input_func()
