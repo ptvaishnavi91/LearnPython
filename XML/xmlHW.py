@@ -2,9 +2,9 @@ import xml.etree.ElementTree as ET
 import os
 import sys
 
-from PythonForDQE.HomeWork.XML.ClassesHW import Advertisement, User_Choice, News
-from PythonForDQE.HomeWork.XML.ModuleFilesHW import File_Input
-from PythonForDQE.HomeWork.XML.JSON_HW import News_Json
+from ClassesHW import Advertisement, User_Choice, News
+from ModuleFilesHW import File_Input
+from JSON_HW import News_Json
 
 
 
