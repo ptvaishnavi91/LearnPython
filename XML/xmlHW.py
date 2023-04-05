@@ -2,9 +2,9 @@ import xml.etree.ElementTree as ET
 import os
 import sys
 
-from PythonForDQE.HomeWork.JSON_Module.ClassesHW import Advertisement, User_Choice, News
-from PythonForDQE.HomeWork.JSON_Module.ModuleFilesHW import File_Input
-from PythonForDQE.HomeWork.JSON_Module.JSON_HW import News_Json
+from PythonForDQE.HomeWork.XML.ClassesHW import Advertisement, User_Choice, News
+from PythonForDQE.HomeWork.XML.ModuleFilesHW import File_Input
+from PythonForDQE.HomeWork.XML.JSON_HW import News_Json
 
 
 
@@ -78,6 +78,7 @@ class News_xml(File_Input,Advertisement, User_Choice,News):
         op_data = op_file.readlines()
 
         i = 0
+        print('Comparing input and output files:')
         for line1 in ip_data:
             if ip_data[i] == op_data[i]:
                 print(f'Line {i} is Identical\n\t Line: {ip_data[i]}')
