@@ -33,6 +33,7 @@ class News_xml(News_Json,File_Input,Advertisement, User_Choice,News):
         sys_path = sys.path
         op_file_path = f'{sys_path[0]}\\output_xml_file.xml'
         print(op_file_path)
+
         xml_file = ET.parse(open(ip_file_path))
         print(xml_file)
 
