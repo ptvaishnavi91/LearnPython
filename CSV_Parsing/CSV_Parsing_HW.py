@@ -1,7 +1,7 @@
 import csv
 
-
 def words_count(text):
+    # Looping through the text to find the occurrence of each word in the text
     counts = dict()
     words = text.split()
     for word in words:
@@ -11,54 +11,51 @@ def words_count(text):
             counts[word] = 1
     return counts
 
+def letters_stats(txt):
+    text = txt
+    letter_counts = {}
+    upper_counts = {}
+    total_letters = 0
 
-def letters_count(txt):
-    letters_dict = {"letter":[],"occurence":[], "upper_count":[], "percentage":[]}
-    total_count = 0
-    upper_count = 0
-    upper_letters = []
-    for i in txt:
-        print('i=', i)
-        print(letters_dict["letter"])
-        if i.isupper() and i.lower() in letters_dict["letter"] and i in upper_letters:
-            total_count +=1
-            upper_count +=1
-        elif i.isupper() and  i.lower() not in letters_dict["letter"]:
-            total_count = 1
-            upper_count = 1
-            letters_dict["letter"].append(i.lower())
-        elif not i.isupper() and  i.lower() in letters_dict["letter"]:
-            total_count +=1
-            upper_count = 0
-        elif not i.isupper() and  i.lower() not in letters_dict["letter"]:
-            total_count = 1
-            upper_count = 0
-            letters_dict["letter"].append(i.lower())
-        letters_dict["occurence"].append(total_count)
-        letters_dict["upper_count"].append(upper_count)
-        percentage = (upper_count/total_count)*100
-        letters_dict["percentage"].append(percentage)
+    # Loop through each character in the text
+    for char in text:
+        if char.isalpha():
+            # If the character is a letter, add it to the letter count
+            total_letters += 1
+            if char.isupper():
+                # If the character is uppercase, increment the uppercase count for that letter
+                if char in upper_counts:
+                    upper_counts[char] += 1
+                else:
+                    upper_counts[char] = 1
+            # Add the letter to the letter count dictionary
+            if char in letter_counts:
+                letter_counts[char] += 1
+            else:
+                letter_counts[char] = 1
 
-    return letters_dict
+    # Write results to CSV file
+    with open('letter_stats.csv', mode='w') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Letter', 'Count', 'Uppercase Count', 'Uppercase Percentage'])
+        for letter, count in letter_counts.items():
+            if letter != ' ':
+                upper_count = upper_counts.get(letter, 0)
+                upper_percentage = upper_count / count * 100 if count > 0 else 0
+                writer.writerow([letter, count, upper_count, "{:.2f}%".format(upper_percentage)])
 
+#Taking the News output file as the input text
 with open('News_output.txt', 'r') as f:
     content = f.read()
-   # print(content)
     global count_words
     count_words = words_count(content.lower())
 
-# with open('word_count.csv', 'w', newline='') as f:
-#     test_writer = csv.writer(f)
-#     test_writer.writerow(['word', 'count'])
-#     for key, value in count_words.items():
-#         test_writer.writerow([key, value])
-
-
-with open('letter_count.csv', 'w', newline='') as f:
+# Creating output csv for words count
+with open('word_count.csv', 'w', newline='') as f:
     test_writer = csv.writer(f)
-    test_writer.writerow(['letter', 'count', 'count_uppercase', 'percentage'])
-    test_writer.writerow([ 'a', '4',  '2', '50'])
+    test_writer.writerow(['word', 'count'])
+    for key, value in count_words.items():
+        if key.isalpha():
+            test_writer.writerow([key, value])
 
-    # # print(count_words)
-    letters_freq = letters_count('An apple A day')
-    print('letters_freq\n', letters_freq)
+letters_stats(content)
