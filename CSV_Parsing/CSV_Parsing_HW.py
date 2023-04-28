@@ -11,38 +11,22 @@ def words_count(text):
             counts[word] = 1
     return counts
 
-def letters_stats(txt):
-    text = txt
-    letter_counts = {}
-    upper_counts = {}
-    total_letters = 0
+def letters_count( letter_counts):
+    count_of_letters = []
+    total_count = len(letter_counts)
+    for char in letter_counts:
+        if char != ' ' and char.isalpha():
+            total = letter_counts.count(char.lower())
+            upper_count = letter_counts.count(char.upper())
+            percentage = ((total + upper_count) / total_count) * 100
+            count_of_letters.append((char.lower(), total + upper_count, upper_count, percentage))
+    count_of_letters = list(dict.fromkeys(count_of_letters))
 
-    # Loop through each character in the text
-    for char in text:
-        if char.isalpha():
-            # If the character is a letter, add it to the letter count
-            total_letters += 1
-            if char.isupper():
-                # If the character is uppercase, increment the uppercase count for that letter
-                if char in upper_counts:
-                    upper_counts[char] += 1
-                else:
-                    upper_counts[char] = 1
-            # Add the letter to the letter count dictionary
-            if char in letter_counts:
-                letter_counts[char] += 1
-            else:
-                letter_counts[char] = 1
-
-    # Write results to CSV file
-    with open('letter_stats.csv', mode='w') as file:
-        writer = csv.writer(file)
-        writer.writerow(['Letter', 'Count', 'Uppercase Count', 'Uppercase Percentage'])
-        for letter, count in letter_counts.items():
-            if letter != ' ':
-                upper_count = upper_counts.get(letter, 0)
-                upper_percentage = upper_count / count * 100 if count > 0 else 0
-                writer.writerow([letter, count, upper_count, "{:.2f}%".format(upper_percentage)])
+    with open('letter_count.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['letter', 'total_count', 'upper_count', 'percentage'])
+        for letter, total, upper, percentage in count_of_letters:
+            writer.writerow([letter, total, upper, percentage])
 
 #Taking the News output file as the input text
 with open('News_output.txt', 'r') as f:
@@ -58,4 +42,4 @@ with open('word_count.csv', 'w', newline='') as f:
         if key.isalpha():
             test_writer.writerow([key, value])
 
-letters_stats(content)
+letters_count(content)
